@@ -19,22 +19,14 @@ def get_sitemap(url):
         'Upgrade-Insecure-Requests': '1',
         'Cache-Control': 'no-cache',
     }
-
-    get_url = requests.get(url, headers=headers, timeout=10)
-
-    if get_url.status_code == 200:
-        return get_url.text
-    else:
-        print('Unable to fetch sitemap: %s.' % url)
-
-def get_fee_structure():
-    headers = {
-        'Pragma': 'no-cache',
-        'Upgrade-Insecure-Requests': '1',
-        'Cache-Control': 'no-cache',
-    }
-    url = 'https://www.binance.com/assetWithdraw/getAllAsset.html'
-    get_url = requests.get(url, headers=headers, timeout=10)
+    try:
+        get_url = requests.get(url, headers=headers, timeout=10)
+        if get_url.status_code == 200:
+            return get_url.text
+        else:
+            print('Unable to fetch sitemap: %s.' % url)
+    except:
+        print("Sitemap Request Failed..")
 
 def process_sitemap(s):
     soup = BeautifulSoup(s, "html5lib")
@@ -77,11 +69,14 @@ def get_fee_structure():
         'Cache-Control': 'no-cache',
     }
     url = 'https://www.binance.com/assetWithdraw/getAllAsset.html'
-    get_url = requests.get(url, headers=headers)
-    json_data = json.loads(get_url.text)
     results = []
-    for data in json_data:
-        results.append(data["assetCode"])
+    try:
+        get_url = requests.get(url, headers=headers, timeout=10)
+        json_data = json.loads(get_url.text)
+        for data in json_data:
+            results.append(data["assetCode"])
+    except:
+        print("Fee Request Failed..")
     return results
 
 def get_new_coin(results, previous_results):
