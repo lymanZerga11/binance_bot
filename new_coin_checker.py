@@ -20,7 +20,7 @@ def get_sitemap(url):
         'Cache-Control': 'no-cache',
     }
 
-    get_url = requests.get(url, headers=headers)
+    get_url = requests.get(url, headers=headers, timeout=10)
 
     if get_url.status_code == 200:
         return get_url.text
@@ -34,7 +34,7 @@ def get_fee_structure():
         'Cache-Control': 'no-cache',
     }
     url = 'https://www.binance.com/assetWithdraw/getAllAsset.html'
-    get_url = requests.get(url, headers=headers)
+    get_url = requests.get(url, headers=headers, timeout=10)
 
 def process_sitemap(s):
     soup = BeautifulSoup(s, "html5lib")
