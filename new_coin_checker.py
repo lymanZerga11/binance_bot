@@ -90,9 +90,7 @@ def get_new_coin(results, previous_results):
             return new_coin
 
 def main():
-    previous_sitemap_count = 0
     previous_sitemap_results = ["a","b"]
-    previous_fee_count = 0
     previous_fee_results = ["a","b"]
     while(1):
         sitemap = get_sitemap('https://support.binance.com/hc/sitemap.xml')
@@ -100,7 +98,7 @@ def main():
         fee_results = get_fee_structure()
         # print(sitemap_results)
         # print(fee_results)
-        if len(sitemap_results) != previous_sitemap_count:
+        if len(sitemap_results) != len(previous_sitemap_results):
             new_coin = get_new_coin(sitemap_results, previous_sitemap_results)
             #print(new_coin)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
@@ -108,21 +106,19 @@ def main():
             time.sleep(30)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
-            previous_sitemap_count = len(sitemap_results)
             previous_sitemap_results = sitemap_results
 
-        if  len(fee_results) != previous_fee_count:
+        if  len(fee_results) != len(previous_fee_results):
             new_coin = get_new_coin(fee_results, previous_fee_results)
-            #print(new_coin)
+            # print(new_coin)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
             time.sleep(30)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
-            previous_fee_count = len(fee_results)
             previous_fee_results = fee_results
         else:
-            #print("Same")
+            # print("Same")
             time.sleep(5)
             continue
 
