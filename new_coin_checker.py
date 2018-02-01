@@ -98,27 +98,29 @@ def main():
         print(sitemap_results)
         print(fee_results)
         if len(sitemap_results) != len(previous_sitemap_results):
-            new_coin = get_new_coin(sitemap_results, previous_sitemap_results)
-            print(new_coin)
-            message = client.messages.create(to="+6586150790", from_="+19092662529",
-                                             body="New Coin Launching: " + new_coin)
-            time.sleep(20)
-            message = client.messages.create(to="+6586150790", from_="+19092662529",
-                                             body="New Coin Launching: " + new_coin)
-            previous_sitemap_results = sitemap_results
+            if len(sitemap_results) and len(previous_sitemap_results):
+                new_coin = get_new_coin(sitemap_results, previous_sitemap_results)
+                print(new_coin)
+                message = client.messages.create(to="+6586150790", from_="+19092662529",
+                                                 body="New Coin Launching: " + new_coin)
+                time.sleep(20)
+                message = client.messages.create(to="+6586150790", from_="+19092662529",
+                                                 body="New Coin Launching: " + new_coin)
 
         if  len(fee_results) != len(previous_fee_results):
-            new_coin = get_new_coin(fee_results, previous_fee_results)
-            print(new_coin)
-            message = client.messages.create(to="+6586150790", from_="+19092662529",
-                                             body="New Coin Launching: " + new_coin)
-            time.sleep(20)
-            message = client.messages.create(to="+6586150790", from_="+19092662529",
-                                             body="New Coin Launching: " + new_coin)
-            previous_fee_results = fee_results
+            if  len(fee_results) and len(previous_fee_results):
+                new_coin = get_new_coin(fee_results, previous_fee_results)
+                print(new_coin)
+                message = client.messages.create(to="+6586150790", from_="+19092662529",
+                                                 body="New Coin Launching: " + new_coin)
+                time.sleep(20)
+                message = client.messages.create(to="+6586150790", from_="+19092662529",
+                                                 body="New Coin Launching: " + new_coin)
         else:
             print("Same")
             time.sleep(5)
+        previous_fee_results = fee_results
+        previous_sitemap_results = sitemap_results
         count = count + 1
 
 
