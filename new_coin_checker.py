@@ -95,11 +95,6 @@ def main():
         sitemap_results = parse_sitemap(sitemap)
         fee_results = get_fee_structure()
 
-        if(count == 3):
-            sitemap_results.append("XXX")
-            fee_results.append("XXX")
-
-
         print(sitemap_results)
         print(fee_results)
         if len(sitemap_results) != len(previous_sitemap_results):
@@ -107,7 +102,7 @@ def main():
             print(new_coin)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
-            time.sleep(30)
+            time.sleep(20)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
             previous_sitemap_results = sitemap_results
@@ -117,7 +112,7 @@ def main():
             print(new_coin)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
-            time.sleep(30)
+            time.sleep(20)
             message = client.messages.create(to="+6586150790", from_="+19092662529",
                                              body="New Coin Launching: " + new_coin)
             previous_fee_results = fee_results
