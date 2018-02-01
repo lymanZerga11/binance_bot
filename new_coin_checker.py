@@ -19,14 +19,16 @@ def get_sitemap(url):
         'Upgrade-Insecure-Requests': '1',
         'Cache-Control': 'no-cache',
     }
+    result = ""
     try:
         get_url = requests.get(url, headers=headers, timeout=10)
         if get_url.status_code == 200:
-            return get_url.text
+            result = get_url.text
         else:
             print('Unable to fetch sitemap: %s.' % url)
     except:
         print("Sitemap Request Failed..")
+    return result
 
 def process_sitemap(s):
     soup = BeautifulSoup(s, "html5lib")
